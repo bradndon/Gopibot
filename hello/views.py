@@ -129,8 +129,9 @@ def recommend(request):
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
 
-def help(request):
-    notification = {"color": "gray", "message": note, "notify":False,"message_format":"text"}
+@csrf_exempt
+def about(request):
+    notification = {"color": "gray", "message": "This bot is a tribute to the most stylish man in Seattle. It will help you decide on lunch for the day.", "notify":False,"message_format":"text"}
     url = 'https://expedia.hipchat.com/v2/room/3060320/notification?auth_token=eqqE5K0HmvDAP0IJcroihbhtvpeX9EX5iYZtY2fI'
     r = requests.post(url, data=notification)
 
