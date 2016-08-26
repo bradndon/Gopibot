@@ -15,16 +15,19 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Greeting
 
-# Create your views here.
-@csrf_exempt
-def index(request):
-    # return HttpResponse('Hello from Python!')
+def getValues():
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
     service = discovery.build('sheets', 'v4', developerKey='AIzaSyD_otvSldDNjFXyEd3W70CpQTDJkldNa2I')
 
     spreadsheetId = '1gVJNMbbD8Zkbm_sFljkGZLmWc9lNJrfTimrM8wfXwgY'
-    rangeName = 'A1:F21'
+    result = service.spreadsheets().get(spreadsheetId=spreadsheetId, includeGridData=False).execute()
+    sheetId = ""
+    for sheet in result["sheets"] :
+        if time.strftime("%B") in sheet["properties"]["title"]:
+            sheetName = sheet["properties"]["title"]
+
+    rangeName = sheetName + '!A1:F21'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
@@ -44,6 +47,12 @@ def index(request):
                         allResults.append([row[0]] + v.replace("\n", ", ").replace("-", "").strip().split(", "))
     while len(allResults) != 3 :
         allResults.append([])
+    return allResults
+
+# Create your views here.
+@csrf_exempt
+def index(request):
+    allResults = getValues()
     message="<table>"
     for i in range(0, max(len(allResults[0]), len(allResults[1]), len(allResults[2]))):
         message += "<tr>"
@@ -68,38 +77,7 @@ def index(request):
 
 @csrf_exempt
 def recommend(request):
-    """Shows basic usage of the Sheets API.
-
-    Creates a Sheets API service object and prints the names and majors of
-    students in a sample spreadsheet:
-    https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-    """
-    discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
-                    'version=v4')
-    service = discovery.build('sheets', 'v4', developerKey='AIzaSyD_otvSldDNjFXyEd3W70CpQTDJkldNa2I')
-
-    spreadsheetId = '1gVJNMbbD8Zkbm_sFljkGZLmWc9lNJrfTimrM8wfXwgY'
-    rangeName = 'A1:F21'
-    # result = service.spreadsheets().get(spreadsheetId=spreadsheetId).execute()
-
-
-    result = service.spreadsheets().values().get(
-        spreadsheetId=spreadsheetId, range=rangeName).execute()
-    values = result.get('values', [])
-    allResults = [];
-    if not values:
-        print('No data found.')
-    else:
-        dates = ["","","","","",""]
-        for row in values:
-            if not row[0]:
-                dates = row
-            else :
-                for index, v in enumerate(row):
-                    if time.strftime("%d") == dates[index]:
-                        allResults.append([row[0]] + v.replace("\n", ", ").replace("-", "").strip().split(", "))
-    while len(allResults) != 3 :
-        allResults.append([])
+    allResults = getValues()
     choices = []
     for i in range(0, max(len(allResults[0]), len(allResults[1]), len(allResults[2]))):
         for j in range(0,3):
