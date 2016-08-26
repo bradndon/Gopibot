@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'^trucks$', hello.views.index, name='index'),
     url(r'^recommend$', hello.views.recommend, name='recommend'),
     url(r'^about$', hello.views.about, name='about'),
-    url(r'^admin/', include(admin.site.urls)),
 ]

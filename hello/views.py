@@ -113,12 +113,3 @@ def about(request):
     url = 'https://expedia.hipchat.com/v2/room/3060320/notification?auth_token=eqqE5K0HmvDAP0IJcroihbhtvpeX9EX5iYZtY2fI'
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
-
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
