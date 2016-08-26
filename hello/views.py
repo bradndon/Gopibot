@@ -36,9 +36,12 @@ def index(request):
             if not row[0]:
                 dates = row
             else :
+
                 for index, v in enumerate(row):
                     if (time.strftime("%d") == dates[index]):
                         allResults.append([row[0]] + v.replace("\n", ", ").replace("-", "").strip().split(", "))
+    while len(allResults) != 3 :
+        allResults.append([])
     message="<table>"
     for i in range(0, max(len(allResults[0]), len(allResults[1]), len(allResults[2]))):
         message += "<tr>"
