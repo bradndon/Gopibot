@@ -11,11 +11,12 @@ from oauth2client import client
 from oauth2client import tools
 import requests
 import random
-
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Greeting
 
 # Create your views here.
+@csrf_exempt
 def index(request):
     # return HttpResponse('Hello from Python!')
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
@@ -65,6 +66,7 @@ def index(request):
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
 
+@csrf_exempt
 def recommend(request):
     """Shows basic usage of the Sheets API.
 
