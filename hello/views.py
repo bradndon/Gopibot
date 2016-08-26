@@ -10,6 +10,7 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 import requests
+import random
 
 
 from .models import Greeting
