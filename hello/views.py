@@ -1,6 +1,7 @@
+from __future__ import print_function
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from __future__ import print_function
 import httplib2
 import os
 import time
