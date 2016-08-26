@@ -111,6 +111,8 @@ def recommend(request):
                     choices.append("The Box is at " + allResults[j][0] + " today. (mmhmm)")
                 elif "Mangia" in message:
                     choices.append("Mangia Me is at " + allResults[j][0] + " today. I enjoy the pasta there.")
+                elif "Papa B" in message:
+                    choices.append("Papa Bois is at " + allResults[j][0] + " today. I would recommend it.")
     randNum = random.randint(0,2)
     while len(allResults[randNum]) < 2:
         randNum = random.randint(0,2)
