@@ -68,7 +68,7 @@ def index(request):
         message += "</tr>"
     message+="</table><p>Warning: There is no guarantee these values are correct</p>"
     notification = {"color": "purple", "message": message, "notify":False}
-    url = 'https://expedia.hipchat.com/v2/room/3060320/notification?auth_token=eqqE5K0HmvDAP0IJcroihbhtvpeX9EX5iYZtY2fI'
+    url = os.environ["HIPCHAT_URL"]
     r = requests.post(url, data={"color":"red","message":"(hungry)? Food Trucks for " + time.strftime("%B %d") +":\n","notify":False,"message_format":"text"})
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
