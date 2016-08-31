@@ -13,7 +13,6 @@ import requests
 import random
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Greeting
 
 def getValues():
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
