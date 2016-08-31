@@ -101,13 +101,13 @@ def recommend(request):
         note = "There are a few good options today:\n" + "\n".join(choices)
     notification = {"color": "green", "message": note, "notify":False,"message_format":"text"}
     print(notification)
-    url = 'https://expedia.hipchat.com/v2/room/3060320/notification?auth_token=eqqE5K0HmvDAP0IJcroihbhtvpeX9EX5iYZtY2fI'
+    url = os.environ["HIPCHAT_URL"]
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
 
 @csrf_exempt
 def about(request):
     notification = {"color": "gray", "message": "This bot is a tribute to the most stylish man in Seattle. It will help you decide on lunch for the day.", "notify":False,"message_format":"text"}
-    url = 'https://expedia.hipchat.com/v2/room/3060320/notification?auth_token=eqqE5K0HmvDAP0IJcroihbhtvpeX9EX5iYZtY2fI'
+    url = os.environ["HIPCHAT_URL"]
     r = requests.post(url, data=notification)
     return render(request, 'index.html')
