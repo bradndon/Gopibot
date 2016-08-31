@@ -132,7 +132,8 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
+DEVELOPER_KEY = 'AIzaSyD_otvSldDNjFXyEd3W70CpQTDJkldNa2I'
+
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-

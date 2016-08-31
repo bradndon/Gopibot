@@ -1,5 +1,5 @@
 from __future__ import print_function
-
+import os
 from django.shortcuts import render
 from django.http import HttpResponse
 import httplib2
@@ -18,7 +18,7 @@ from .models import Greeting
 def getValues():
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
-    service = discovery.build('sheets', 'v4', developerKey='AIzaSyD_otvSldDNjFXyEd3W70CpQTDJkldNa2I')
+    service = discovery.build('sheets', 'v4', developerKey=os.environ['DEVELOPER_KEY'])
 
     spreadsheetId = '1gVJNMbbD8Zkbm_sFljkGZLmWc9lNJrfTimrM8wfXwgY'
     result = service.spreadsheets().get(spreadsheetId=spreadsheetId, includeGridData=False).execute()
@@ -49,7 +49,6 @@ def getValues():
         allResults.append([])
     return allResults
 
-# Create your views here.
 @csrf_exempt
 def index(request):
     allResults = getValues()
