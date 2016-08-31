@@ -35,12 +35,15 @@ $ heroku open
 ## Required Environment Variables
 
 DEVELOPER_KEY: A google developer key that has access to the sheets api
+
 HIPCHAT_URL: A url given by hipchat for a integration to work from
 
 ## Endpoints
 
 /trucks: List all trucks in Bellevue for today according to google sheet
+
 /recommend: Get a recommendation of where to eat from Gopibot
+
 /about: Learn about Gopibot
 
 To use these with hipchat I made them slash commands named respectively after
