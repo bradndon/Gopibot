@@ -77,18 +77,16 @@ def index(request):
 def recommend(request):
     allResults = getValues()
     choices = []
-    for i in range(0, max(len(allResults[0]), len(allResults[1]), len(allResults[2]))):
-        for j in range(0,3):
-            if len(allResults[j]) > i:
-                message =  allResults[j][i]
-                if "Bumbu" in message:
-                    choices.append("Bumbu is at " + allResults[j][0] + " today. We should tell Agnes.")
-                elif message == "The Box":
-                    choices.append("The Box is at " + allResults[j][0] + " today. (mmhmm)")
-                elif "Mangia" in message:
-                    choices.append("Mangia Me is at " + allResults[j][0] + " today. I enjoy the pasta there.")
-                elif "Papa B" in message:
-                    choices.append("Papa Bois is at " + allResults[j][0] + " today. I would recommend it.")
+    for index, j in enumerate(allResults):
+        for message in j:
+            if "Bumbu" in message:
+                choices.append("Bumbu is at " + allResults[index][0] + " today. We should tell Agnes.")
+            elif message == "The Box":
+                choices.append("The Box is at " + allResults[index][0] + " today. (mmhmm)")
+            elif "Mangia" in message:
+                choices.append("Mangia Me is at " + allResults[index][0] + " today. I enjoy the pasta there.")
+            elif "Papa B" in message:
+                choices.append("Papa Bois is at " + allResults[index][0] + " today. I would recommend it.")
     randNum = random.randint(0,2)
     while len(allResults[randNum]) < 2:
         randNum = random.randint(0,2)
