@@ -49,6 +49,10 @@ def getValues():
     return allResults
 
 @csrf_exempt
+def test(request):
+    return render(request, 'index.html')
+
+@csrf_exempt
 def index(request):
     allResults = getValues()
     message="<table>"
